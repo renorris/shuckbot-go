@@ -59,11 +59,16 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	s.ChannelTyping(m.ChannelID)
 
 	// Log message
-	fmt.Println("Got message \"", m.Content, "\" from", m.Author.ID, m.Author.Username)
+	fmt.Println("Got command \"", m.Content, "\" from", m.Author.ID, m.Author.Username)
 
-	// Parse command and get a handler function back
-	handler := ParseCommand(s, m)
+	// Process command
+	handlerResponse := ProcessCommand(s, m)
 
-	// Handle the command
-	handler()
+	// Send replies
+	for _, msg := range handlerResponse.GetReplyMessages() {
+		_, err := s.ChannelMessageSend(m.ChannelID, msg)
+		if err != nil {
+			fmt.Println("There was an error sending a message: ", err)
+		}
+	}
 }
