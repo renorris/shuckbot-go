@@ -1,4 +1,4 @@
-package handlers
+package commands
 
 import (
 	"github.com/bwmarrin/discordgo"
@@ -6,6 +6,6 @@ import (
 
 func PingHandler(s *discordgo.Session, m *discordgo.MessageCreate) *HandlerResponse {
 	response := new(HandlerResponse)
-	response.AddReplyMessage("Pong!")
+	response.AddReplyMessage("Pong")
 	return response
 }

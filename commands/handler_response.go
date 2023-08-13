@@ -1,4 +1,4 @@
-package handlers
+package commands
 
 type HandlerResponse struct {
 	replyMessages []string
